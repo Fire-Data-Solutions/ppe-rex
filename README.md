@@ -47,6 +47,17 @@ ppe-rex/
 
 `EnsembleElement.element_id` is the compound key `"{manufacturer_id}:{serial_number}"`. See the clause mapping doc's "Identity note" for the reasoning and known edge cases (unmarked legacy gear, post-repair serial changes).
 
+## Governance & stewardship
+
+This project is currently hosted under [Fire Data Solutions](https://github.com/Fire-Data-Solutions)'s GitHub organization, which is acting as **initial steward**, not owner. Fire Data Solutions makes TrackMyPPE, one of several commercial platforms in the current NFPA 1851/1850 PPE-tracking landscape this project is trying to build a neutral interchange format for.
+
+What that means in practice:
+
+- **Copyright is held by "PPE-REX Project Contributors,"** not by Fire Data Solutions — see `NOTICE`. Anyone who contributes retains standing alongside the initial steward, not underneath it.
+- **The license is Apache 2.0** (see `LICENSE`, `CONTRIBUTING.md`), chosen specifically so no single contributor — steward included — can use a patent claim to restrict how competing vendors implement the standard.
+- **The intended trajectory is away from single-vendor hosting**. See `CONTRIBUTING.md` and the architecture proposal's adoption path (pilot → neutral-body hosting via IJIS Institute or OASIS/NIEMOpen → NFPA 1850 informative annex submission).
+- **Decisions about schema direction will be documented and discussable in the open** (issues, discussions), not made unilaterally by the hosting org.
+  
 ## Status
 
 This is a **draft proposal**, not a ratified standard. It has not been submitted to or endorsed by NFPA, USFA, FSRI, or any standards body. See `02-design-philosophy.md` for the design rationale and the architecture proposal doc for the intended path to formal adoption (build → pilot → neutral-body hosting → NFPA 1850 informative annex).
