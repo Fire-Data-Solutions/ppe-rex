@@ -1,0 +1,18 @@
+{
+  "element_id": "LION:LOT-77102-B",
+  "element_type": "GLOVES",
+  "manufacturer_id": "LION",
+  "model": "Wildland Structural Glove",
+  "identifier": {
+    "identifier_type": "LOT_NUMBER",
+    "value": "LOT-77102-B",
+    "assigned_by": "MANUFACTURER"
+  },
+  "manufacture_date": "2025-06",
+  "owning_organization_id": "org_dept_springfield_fd",
+  "assigned_to_person_id": null,
+  "rotation_program": true,
+  "status": "ACTIVE",
+  "in_service_date": "2025-07-01",
+  "retirement_date": null
+}

@@ -1,0 +1,25 @@
+{
+  "element_id": "MSA:AB-2024-88213",
+  "element_type": "COAT",
+  "manufacturer_id": "MSA",
+  "model": "G1 Structural Coat",
+  "identifier": {
+    "identifier_type": "SERIAL_NUMBER",
+    "value": "AB-2024-88213",
+    "assigned_by": "MANUFACTURER"
+  },
+  "manufacture_date": "2024-03",
+  "certification_refs": [
+    {
+      "standard": "NFPA 1970",
+      "certifying_body": "UL",
+      "certification_date": "2024-01-15"
+    }
+  ],
+  "owning_organization_id": "org_dept_springfield_fd",
+  "assigned_to_person_id": "sfd_member_1042",
+  "rotation_program": false,
+  "status": "ACTIVE",
+  "in_service_date": "2024-04-01",
+  "retirement_date": null
+}

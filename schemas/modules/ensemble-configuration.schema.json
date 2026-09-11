@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppe-rex.org/schemas/modules/ensemble-configuration.schema.json",
+  "title": "EnsembleConfiguration",
+  "description": "Groups a set of EnsembleElements that together constitute a certified liquid and/or particulate contaminant-protection configuration. NFPA 1851 4.3.4 requires organizations to document which specific elements and interface components make up such a configuration (e.g., a particulate hood is only rated as part of a specific coat/pant/interface combination) — this is a relationship record, not a property of any single element.",
+  "type": "object",
+  "required": ["configuration_id", "protection_type", "member_element_ids", "owning_organization_id"],
+  "properties": {
+    "configuration_id": {
+      "type": "string"
+    },
+    "protection_type": {
+      "type": "string",
+      "enum": ["LIQUID", "PARTICULATE", "BOTH"],
+      "description": "NFPA 1851 4.3.4: type of optional contaminant protection this configuration provides."
+    },
+    "member_element_ids": {
+      "type": "array",
+      "description": "FKs to EnsembleElement.element_id — every element and interface component required for this configuration to provide its certified protection (e.g., coat, pant, hood, interface gaskets/closures).",
+      "items": { "type": "string" },
+      "minItems": 2
+    },
+    "owning_organization_id": {
+      "type": "string",
+      "description": "FK to Organization.org_id."
+    },
+    "certification_ref": {
+      "type": "object",
+      "description": "The specific certification this configuration (as a set) is rated to, if distinct from individual element certifications.",
+      "properties": {
+        "standard": { "type": "string" },
+        "certifying_body": { "type": "string" },
+        "certification_date": { "type": "string", "format": "date" }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "E.g., substitution constraints — whether member elements can be swapped for other certified equivalents without invalidating the configuration."
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": { "type": "object" }
+    }
+  },
+  "additionalProperties": false
+}

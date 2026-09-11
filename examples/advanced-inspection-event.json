@@ -1,0 +1,41 @@
+{
+  "event_id": "evt_9c2f1e40-7a3b-4d5c-8e1a-2b3c4d5e6f70",
+  "element_id": "MSA:AB-2024-88213",
+  "event_type": "ADVANCED_INSPECTION",
+  "performed_by_org_id": "org_dept_springfield_fd",
+  "performed_by_person_id": "sfd_member_1042",
+  "performed_date": "2026-08-15T09:30:00-05:00",
+  "location": "Station 4 Gear Room",
+  "result": {
+    "outcome": "CONDITIONAL",
+    "defect_codes": ["REFLECTIVE_TRIM_DAMAGE"],
+    "notes": "Minor trim wear on left sleeve, does not yet meet failure threshold. Re-inspect at next cycle."
+  },
+  "attachments": [
+    {
+      "attachment_type": "PHOTO",
+      "uri": "https://records.springfieldfd.example/attachments/a1b2c3.jpg",
+      "hash": "sha256:3f786850e387550fdab836ed7e6dc881de23001"
+    }
+  ],
+  "trigger": {
+    "trigger_type": "EXPOSURE_INCIDENT",
+    "source_system": "NERIS",
+    "reason": "Structure fire exposure per NERIS incident NERIS-2026-0417-004821; advanced inspection performed per department SOP following confirmed products-of-combustion exposure.",
+    "neris_incident_id": "NERIS-2026-0417-004821",
+    "related_event_id": null,
+    "linked_date": "2026-08-14"
+  },
+  "attestation": {
+    "content_hash": "sha256:9e1c5f2a8b3d4e6f7a8b9c0d1e2f3a4b5c6d7e8f",
+    "signed_by_org_id": "org_dept_springfield_fd",
+    "signature": "base64:MEUCIQDx...",
+    "finalized_at": "2026-08-15T09:45:00-05:00"
+  },
+  "extensions": {
+    "com.pstrax": {
+      "internal_workorder_id": "WO-88213",
+      "technician_certification_level": "Level II"
+    }
+  }
+}

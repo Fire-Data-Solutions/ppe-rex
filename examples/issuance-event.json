@@ -1,0 +1,20 @@
+{
+  "event_id": "evt_1a2b3c4d-0001-4a5b-8c6d-7e8f9a0b1c2d",
+  "element_id": "MSA:AB-2024-88213",
+  "event_type": "ISSUANCE",
+  "performed_by_org_id": "org_dept_springfield_fd",
+  "issued_to_person_id": "sfd_member_1042",
+  "performed_by_person_id": "sfd_member_9001",
+  "performed_date": "2024-04-01T08:00:00-05:00",
+  "location": "Station 4 Gear Room",
+  "result": {
+    "outcome": "COMPLETED",
+    "notes": "Issued new; no defects on inspection at issue."
+  },
+  "attestation": {
+    "content_hash": "sha256:7c3e9a1b2d4f6e8a0c1b3d5f7a9c1e3d5f7a9c1e",
+    "signed_by_org_id": "org_dept_springfield_fd",
+    "signature": "base64:MEQCIB...",
+    "finalized_at": "2024-04-01T08:05:00-05:00"
+  }
+}

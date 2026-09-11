@@ -1,0 +1,51 @@
+# event-type.yaml
+# Controlled vocabulary for ServiceEvent.event_type
+# `mandated_by` cites the NFPA 1851 clause requiring this record, where verified.
+# Types without a mandated_by are recommended-core: commonly tracked by departments
+# and implied by other chapters, but not explicitly named in Section 4.3's minimum
+# record list as currently verified.
+
+type: string
+enum:
+  - id: ISSUANCE
+    label: Issuance
+    description: Element issued to a member. Captures date and condition at issue.
+    mandated_by: "NFPA 1851 4.3.3(1)-(2)"
+    applies_when: "rotation_program = false"
+  - id: ROUTINE_INSPECTION
+    label: Routine Inspection
+    description: Performed by the wearer at/after each use.
+  - id: ADVANCED_INSPECTION
+    label: Advanced Inspection
+    description: Performed by a trained inspector at defined minimum frequency.
+    mandated_by: "NFPA 1851 4.3.3(6)"
+  - id: PRELIMINARY_EXPOSURE_REDUCTION
+    label: Preliminary Exposure Reduction
+    description: On-scene decontamination.
+  - id: ADVANCED_CLEANING
+    label: Advanced Cleaning
+    description: Performed by a verified individual or ISP at minimum defined frequency.
+    mandated_by: "NFPA 1851 4.3.3(7)-(8)"
+  - id: DISINFECTION_SANITIZATION
+    label: Disinfection or Sanitization
+    description: Distinct from advanced cleaning per the standard's own wording.
+    mandated_by: "NFPA 1851 4.3.3(7)-(8)"
+  - id: SPECIALIZED_CLEANING
+    label: Specialized Cleaning
+    description: For contamination beyond routine soiling (e.g., CBRN).
+    mandated_by: "NFPA 1851 4.3.3(7)-(8)"
+  - id: REPAIR
+    label: Repair
+    mandated_by: "NFPA 1851 4.3.3(9)"
+  - id: RETIREMENT
+    label: Retirement
+    mandated_by: "NFPA 1851 4.3.3(10)"
+  - id: DISPOSITION
+    label: Disposition
+    description: Final disposal of a retired element, recorded so it cannot be returned to service.
+    mandated_by: "NFPA 1851 4.3.3(11)"
+  - id: RETURNED_TO_ROTATION_INVENTORY
+    label: Returned to Rotation Inventory
+    description: Element returned to a rotating exchange pool rather than an individual.
+    mandated_by: "NFPA 1851 4.3.5(6)"
+    applies_when: "rotation_program = true"
