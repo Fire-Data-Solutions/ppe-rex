@@ -1,0 +1,30 @@
+# identifier-type.yaml
+# Controlled vocabulary for EnsembleElement.identifier.identifier_type
+# NFPA 1851 4.3.3(4) requires "identification number, lot number, or serial number."
+# ORGANIZATION_ASSIGNED is a PPE-REX addition for items with no manufacturer-provided
+# identifier — the department assigns its own number. This is common in practice
+# (e.g., gloves that ship without individual serials) and needs first-class support,
+# but it changes the uniqueness scope of the identifier — see element_id construction
+# note in ensemble-element.schema.json and the clause mapping doc.
+
+type: string
+enum:
+  - id: SERIAL_NUMBER
+    label: Manufacturer Serial Number
+    assigned_by: MANUFACTURER
+  - id: LOT_NUMBER
+    label: Manufacturer Lot Number
+    assigned_by: MANUFACTURER
+  - id: IDENTIFICATION_NUMBER
+    label: Manufacturer Identification Number
+    assigned_by: MANUFACTURER
+    description: Catch-all for manufacturer-assigned identifiers that are neither a serial nor a lot number.
+  - id: ORGANIZATION_ASSIGNED
+    label: Organization-Assigned Number
+    assigned_by: ORGANIZATION
+    description: >
+      Assigned by the fire department itself, typically when the manufacturer
+      provides no individual identifier (e.g., gloves). Unique within the
+      assigning organization's own numbering scheme, NOT guaranteed globally
+      unique — element_id's namespace prefix (the owning org's org_id, not a
+      manufacturer_id) is what actually resolves collisions across departments.

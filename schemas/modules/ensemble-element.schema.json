@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppe-rex.org/schemas/modules/ensemble-element.schema.json",
+  "title": "EnsembleElement",
+  "description": "A single protective ensemble element (coat, pant, helmet, hood, gloves, boots, SCBA component). One record per physical item (or per lot, for lot-tracked items — see identifier.identifier_type). See 01-nfpa-1850-clause-mapping.md, NFPA 1851 Section 4.3, for the compliance rationale behind each field.",
+  "type": "object",
+  "required": [
+    "element_id",
+    "element_type",
+    "manufacturer_id",
+    "model",
+    "identifier",
+    "manufacture_date",
+    "owning_organization_id",
+    "status",
+    "in_service_date",
+    "rotation_program"
+  ],
+  "properties": {
+    "element_id": {
+      "type": "string",
+      "description": "Compound identity key. Constructed as '{namespace}:{identifier.value}', where namespace = manufacturer_id when identifier.assigned_by = MANUFACTURER, or owning_organization_id when identifier.assigned_by = ORGANIZATION. This means uniqueness is guaranteed only within the namespace that assigned the identifier — see the identity note in the clause mapping doc.",
+      "pattern": "^[A-Za-z0-9._-]+:[A-Za-z0-9._-]+$",
+      "examples": ["MSA:AB-2024-88213", "LION:LOT-77102-B", "org_dept_springfield_fd:C104"]
+    },
+    "element_type": {
+      "$ref": "../types/element-type.yaml"
+    },
+    "manufacturer_id": {
+      "type": "string",
+      "description": "NFPA 1851 4.3.3(3). Required regardless of identifier.identifier_type — manufacturer and model must be recorded even when the department assigns its own identifying number."
+    },
+    "model": {
+      "type": "string",
+      "description": "NFPA 1851 4.3.3(3): manufacturer and model name or design."
+    },
+    "identifier": {
+      "type": "object",
+      "description": "NFPA 1851 4.3.3(4): identification number, lot number, or serial number — plus PPE-REX's ORGANIZATION_ASSIGNED addition for items the manufacturer doesn't individually number.",
+      "required": ["identifier_type", "value", "assigned_by"],
+      "properties": {
+        "identifier_type": {
+          "$ref": "../types/identifier-type.yaml"
+        },
+        "value": {
+          "type": "string"
+        },
+        "assigned_by": {
+          "type": "string",
+          "enum": ["MANUFACTURER", "ORGANIZATION"],
+          "description": "Determines element_id's namespace and therefore the identifier's true uniqueness scope. ORGANIZATION means the value is only guaranteed unique within owning_organization_id's own numbering — not globally, and not guaranteed collision-free against another department's numbering if this element is ever transferred."
+        }
+      },
+      "additionalProperties": false
+    },
+    "aliases": {
+      "type": "array",
+      "description": "Optional, non-normative alternate identifiers — e.g., department asset tags like 'C104'. NFPA 1851 does not require these; they're included as a first-class field because the practice is common enough that leaving it to ad hoc vendor extensions would fragment it. PPE-REX does not parse or assign meaning to alias values (e.g., it does not infer that 'C104' means 'coat' or that it pairs with 'P104' — that convention lives in the department's own notes/practice, not in the standard).",
+      "items": {
+        "type": "object",
+        "required": ["alias_type", "value", "scope_org_id"],
+        "properties": {
+          "alias_type": { "$ref": "../types/alias-type.yaml" },
+          "value": { "type": "string" },
+          "scope_org_id": {
+            "type": "string",
+            "description": "FK to Organization.org_id — the org within which this alias is meaningful/unique. Aliases are inherently local."
+          },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "paired_element_ids": {
+      "type": "array",
+      "description": "Optional, informal grouping — e.g., a coat and trousers issued together as a set, per local department convention (often signaled by matching asset-tag numbers like C104/P104). This is NOT the same as EnsembleConfiguration (NFPA 1851 4.3.4), which records a certified contaminant-protection grouping. paired_element_ids is a convenience/lookup field with no compliance meaning attached.",
+      "items": { "type": "string" }
+    },
+    "manufacture_date": {
+      "type": "string",
+      "description": "NFPA 1851 4.3.3(5): month and year of manufacture only — intentionally not day-precision.",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$",
+      "examples": ["2024-03"]
+    },
+    "certification_refs": {
+      "type": "array",
+      "description": "Applicable NFPA product standards this element is certified to (e.g., NFPA 1970).",
+      "items": {
+        "type": "object",
+        "required": ["standard", "certifying_body", "certification_date"],
+        "properties": {
+          "standard": { "type": "string", "examples": ["NFPA 1970"] },
+          "certifying_body": { "type": "string" },
+          "certification_date": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "owning_organization_id": {
+      "type": "string",
+      "description": "FK to Organization.org_id — the department/agency that owns this element."
+    },
+    "assigned_to_person_id": {
+      "type": ["string", "null"],
+      "description": "FK to Person.person_id — current wearer. Null for unassigned/spare gear, and expected to remain null between uses when rotation_program = true (NFPA 1851 4.3.5)."
+    },
+    "rotation_program": {
+      "type": "boolean",
+      "description": "True if this element is tracked under NFPA 1851 4.3.5's rotating exchange program profile (not assigned to an individual member) rather than the 4.3.3 assigned-member profile. Changes which ServiceEvent types apply — see clause mapping doc."
+    },
+    "status": {
+      "$ref": "../types/element-status.yaml"
+    },
+    "in_service_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "retirement_date": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "NFPA 1851 4.3.3(10). Element-level summary; the authoritative record is the corresponding RETIREMENT ServiceEvent."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-form notes at the element level. PPE-REX deliberately does not try to structure every possible department convention or edge case into controlled fields — unlike NFIRS's exhaustive code lists, this standard covers what NFPA 1851 requires as structured data and leaves department-specific detail to free text plus extensions, on the premise that modern search/AI-assisted extraction makes rigid taxonomies less necessary than they were when NFIRS was designed."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Vendor-specific fields, namespaced by reverse-DNS or registered prefix. Ignored by Core Conformant readers that don't recognize the namespace.",
+      "additionalProperties": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": false
+}

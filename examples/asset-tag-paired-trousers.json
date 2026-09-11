@@ -1,0 +1,27 @@
+{
+  "element_id": "org_dept_springfield_fd:MSA-PANT-77103",
+  "element_type": "PANT",
+  "manufacturer_id": "MSA",
+  "model": "G1 Structural Pant",
+  "identifier": {
+    "identifier_type": "ORGANIZATION_ASSIGNED",
+    "value": "MSA-PANT-77103",
+    "assigned_by": "ORGANIZATION"
+  },
+  "aliases": [
+    {
+      "alias_type": "DEPT_ASSET_TAG",
+      "value": "P104",
+      "scope_org_id": "org_dept_springfield_fd",
+      "notes": "Local convention: garment letter (P=pant) + shared pairing number matching the coat."
+    }
+  ],
+  "paired_element_ids": ["org_dept_springfield_fd:MSA-COAT-77102"],
+  "manufacture_date": "2023-11",
+  "owning_organization_id": "org_dept_springfield_fd",
+  "assigned_to_person_id": "sfd_member_1088",
+  "rotation_program": false,
+  "status": "ACTIVE",
+  "in_service_date": "2024-01-15",
+  "retirement_date": null
+}

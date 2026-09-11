@@ -1,0 +1,28 @@
+{
+  "event_id": "evt_5f6a7b8c-0002-4d3e-9f1a-2b3c4d5e6f71",
+  "element_id": "MSA:AB-2024-88213",
+  "event_type": "SPECIALIZED_CLEANING",
+  "performed_by_org_id": "org_isp_gearclean_llc",
+  "performed_by_person_id": null,
+  "performed_date": "2026-08-16T13:00:00-05:00",
+  "location": "GearClean LLC — 1420 Industrial Pkwy",
+  "result": {
+    "outcome": "COMPLETED",
+    "method": "CO2",
+    "notes": "CO2 cleaning selected per department SOP for confirmed products-of-combustion exposure; wet extraction not required as follow-up."
+  },
+  "trigger": {
+    "trigger_type": "EXPOSURE_INCIDENT",
+    "source_system": "NERIS",
+    "reason": "Contamination following structure fire exposure; advanced inspection (evt_9c2f1e40-7a3b-4d5c-8e1a-2b3c4d5e6f70) recommended specialized cleaning.",
+    "neris_incident_id": "NERIS-2026-0417-004821",
+    "related_event_id": "evt_9c2f1e40-7a3b-4d5c-8e1a-2b3c4d5e6f70",
+    "linked_date": "2026-08-14"
+  },
+  "attestation": {
+    "content_hash": "sha256:1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e",
+    "signed_by_org_id": "org_isp_gearclean_llc",
+    "signature": "base64:MEUCIQDy...",
+    "finalized_at": "2026-08-16T13:30:00-05:00"
+  }
+}

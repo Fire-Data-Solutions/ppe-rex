@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppe-rex.org/schemas/modules/service-event.schema.json",
+  "title": "ServiceEvent",
+  "description": "A single compliance-relevant action performed on an EnsembleElement: inspection, cleaning, repair, retirement, or disposition. Discriminated by event_type. See 01-nfpa-1850-clause-mapping.md for the compliance rationale behind each field.",
+  "type": "object",
+  "required": [
+    "event_id",
+    "element_id",
+    "event_type",
+    "performed_by_org_id",
+    "performed_date",
+    "result"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Globally unique event identifier, e.g. a UUID."
+    },
+    "element_id": {
+      "type": "string",
+      "description": "FK to EnsembleElement.element_id."
+    },
+    "event_type": {
+      "$ref": "../types/event-type.yaml"
+    },
+    "performed_by_org_id": {
+      "type": "string",
+      "description": "FK to Organization.org_id — the department, ISP, or manufacturer that performed this event."
+    },
+    "performed_by_person_id": {
+      "type": ["string", "null"],
+      "description": "FK to Person.person_id — who carried out the action (inspector, technician, etc.). Null when performed by an ISP without person-level tracking."
+    },
+    "issued_to_person_id": {
+      "type": ["string", "null"],
+      "description": "NFPA 1851 4.3.3(1)-(2). Used only when event_type = ISSUANCE: the recipient of the element, distinct from performed_by_person_id (who conducted the issuance transaction, if tracked separately). Null for all other event types."
+    },
+    "performed_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "location": {
+      "type": "string",
+      "description": "Free-text or facility identifier for where the event took place."
+    },
+    "result": {
+      "type": "object",
+      "required": ["outcome"],
+      "properties": {
+        "outcome": {
+          "type": "string",
+          "enum": ["PASS", "FAIL", "CONDITIONAL", "COMPLETED", "N/A"]
+        },
+        "defect_codes": {
+          "type": "array",
+          "description": "Suggested values documented in defect-code.yaml, but NOT a closed enum — any string is valid. Unlike NFIRS's approach of enumerating a code for every possible scenario, PPE-REX keeps this open: common values are documented for consistency, but a defect that doesn't fit the list should just be described in notes rather than forced into OTHER plus a workaround.",
+          "items": { "type": "string" }
+        },
+        "method": {
+          "type": ["string", "null"],
+          "description": "Free-text cleaning/inspection method, relevant mainly for ADVANCED_CLEANING, DISINFECTION_SANITIZATION, and SPECIALIZED_CLEANING events. Deliberately not a closed enum — cleaning technology is evolving (e.g., CO2 cleaning is an increasingly common specialized-cleaning method) and a fixed vocabulary would need constant revision to stay current.",
+          "examples": ["CO2", "WET_EXTRACTION", "UV_DISINFECTION", "HAND_SCRUB"]
+        },
+        "notes": {
+          "type": "string"
+        },
+        "disposal_method": {
+          "type": ["string", "null"],
+          "description": "Populated only when event_type = DISPOSITION.",
+          "examples": ["DESTROYED", "DONATED_NON_FIRE_USE", "RETURNED_TO_MANUFACTURER"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "attachments": {
+      "type": "array",
+      "description": "Supporting evidence: photos, lab reports, cleaning-verification data (wash temp, detergent, water hardness), etc.",
+      "items": {
+        "type": "object",
+        "required": ["attachment_type", "uri"],
+        "properties": {
+          "attachment_type": {
+            "type": "string",
+            "examples": ["PHOTO", "LAB_REPORT", "CLEANING_VERIFICATION", "REPAIR_INVOICE"]
+          },
+          "uri": { "type": "string", "format": "uri" },
+          "hash": {
+            "type": "string",
+            "description": "SHA-256 hash of the attachment content, for tamper-evidence."
+          }
+        }
+      }
+    },
+    "trigger": {
+      "type": "object",
+      "description": "What caused this event to happen. Carries the optional NERIS linkage.",
+      "required": ["trigger_type"],
+      "properties": {
+        "trigger_type": {
+          "$ref": "../types/trigger-type.yaml"
+        },
+        "source_system": {
+          "type": "string",
+          "examples": ["NERIS", "INTERNAL_SCHEDULE", "MEMBER_REPORT"]
+        },
+        "reason": {
+          "type": ["string", "null"],
+          "description": "NFPA 1851 4.3.3(8): the reason for the action, distinct from trigger_type's structured category. Required in practice for ADVANCED_CLEANING, DISINFECTION_SANITIZATION, and SPECIALIZED_CLEANING events even though not schema-enforced as required, since 4.3.3(8) explicitly calls for a documented reason."
+        },
+        "neris_incident_id": {
+          "type": ["string", "null"],
+          "description": "Reference to a NERIS incident ID, when trigger_type = EXPOSURE_INCIDENT and the department has correlated this event to a specific incident."
+        },
+        "related_event_id": {
+          "type": ["string", "null"],
+          "description": "FK to another ServiceEvent.event_id, e.g. the failed routine inspection that triggered this advanced inspection."
+        },
+        "linked_date": {
+          "type": ["string", "null"],
+          "format": "date"
+        }
+      },
+      "additionalProperties": false
+    },
+    "attestation": {
+      "type": "object",
+      "description": "Integrity/signature block. See architecture doc §7.",
+      "properties": {
+        "content_hash": {
+          "type": "string",
+          "description": "SHA-256 hash of this event's canonical content, computed at finalization."
+        },
+        "signed_by_org_id": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Detached signature over content_hash."
+        },
+        "finalized_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": false
+}

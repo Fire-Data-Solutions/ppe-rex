@@ -1,0 +1,28 @@
+{
+  "element_id": "org_dept_springfield_fd:MSA-COAT-77102",
+  "element_type": "COAT",
+  "manufacturer_id": "MSA",
+  "model": "G1 Structural Coat",
+  "identifier": {
+    "identifier_type": "ORGANIZATION_ASSIGNED",
+    "value": "MSA-COAT-77102",
+    "assigned_by": "ORGANIZATION"
+  },
+  "aliases": [
+    {
+      "alias_type": "DEPT_ASSET_TAG",
+      "value": "C104",
+      "scope_org_id": "org_dept_springfield_fd",
+      "notes": "Local convention: garment letter (C=coat) + shared pairing number."
+    }
+  ],
+  "paired_element_ids": ["org_dept_springfield_fd:MSA-PANT-77103"],
+  "manufacture_date": "2023-11",
+  "owning_organization_id": "org_dept_springfield_fd",
+  "assigned_to_person_id": "sfd_member_1088",
+  "rotation_program": false,
+  "status": "ACTIVE",
+  "in_service_date": "2024-01-15",
+  "retirement_date": null,
+  "notes": "Manufacturer shipped this item without an individually readable serial; department assigned a tracking number at intake per local SOP."
+}

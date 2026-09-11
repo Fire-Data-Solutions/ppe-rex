@@ -1,0 +1,32 @@
+# defect-code.yaml
+# SUGGESTED values for ServiceEvent.result.defect_codes — NOT a closed enum.
+# The schema accepts any string here. This list exists to encourage consistent
+# terminology where it's easy (common, well-understood defect categories),
+# without trying to anticipate every possible finding the way NFIRS attempted
+# to codify nearly every incident scenario. A defect that doesn't fit cleanly
+# should just be described in ServiceEvent.result.notes as free text — with
+# AI-assisted search and extraction now standard, unstructured notes are far
+# more usable downstream than they were when rigid coding schemes were the
+# only practical way to make records queryable.
+
+type: string
+suggested_values:
+  - id: SHELL_DAMAGE
+    label: Outer Shell Damage
+  - id: THERMAL_LINER_DAMAGE
+    label: Thermal Liner Damage
+  - id: MOISTURE_BARRIER_FAILURE
+    label: Moisture Barrier Failure
+  - id: SEAM_FAILURE
+    label: Seam Failure
+  - id: HARDWARE_FAILURE
+    label: Hardware Failure
+    description: Zippers, snaps, closures.
+  - id: REFLECTIVE_TRIM_DAMAGE
+    label: Reflective Trim Damage or Loss
+  - id: CONTAMINATION_PERSISTENT
+    label: Persistent Contamination After Cleaning
+  - id: UV_DEGRADATION
+    label: UV Degradation
+  - id: THERMAL_DAMAGE
+    label: Heat/Thermal Damage

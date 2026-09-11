@@ -1,0 +1,22 @@
+# alias-type.yaml
+# Controlled vocabulary for EnsembleElement.aliases[].alias_type
+# Aliases are explicitly non-normative — NFPA 1851 does not require them.
+# They exist because departments commonly use their own asset-tag conventions
+# (e.g., "C104" for a coat, "P104" for the trousers issued alongside it) and
+# that convention is worth carrying in the standard as a first-class,
+# well-known field rather than forcing it into an unstructured extension
+# every vendor invents differently.
+
+type: string
+enum:
+  - id: DEPT_ASSET_TAG
+    label: Department Asset Tag
+    description: An informal, human-readable tag used internally by the department (e.g., "C104"). Often encodes garment type and a pairing number by local convention, but PPE-REX does not parse or enforce any such convention — see notes field.
+  - id: LEGACY_SYSTEM_ID
+    label: Legacy System Identifier
+    description: An identifier carried over from a prior records system during migration, kept for continuity/lookup purposes.
+  - id: RFID_TAG
+    label: RFID Tag Value
+    description: The value encoded on an RFID tag physically affixed to the element, where distinct from identifier.value.
+  - id: OTHER
+    label: Other
