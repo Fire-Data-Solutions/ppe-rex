@@ -45,7 +45,7 @@ ppe-rex/
 
 ## Identity
 
-`EnsembleElement.element_id` is the compound key `"{manufacturer_id}:{serial_number}"`. See the clause mapping doc's "Identity note" for the reasoning and known edge cases (unmarked legacy gear, post-repair serial changes).
+`EnsembleElement.element_id` is a compound key constructed as `"{namespace}:{identifier.value}"`, where the namespace is a manufacturer ID for manufacturer-assigned identifiers (serial/lot/ID number) or an owning organization's ID for department-assigned numbers. See the clause mapping doc's "Identity note" for the full reasoning and known edge cases (lot-tracked items, gear transferred between departments).
 
 ## Governance & stewardship
 
